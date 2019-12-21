@@ -1,0 +1,39 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class closestEnemy : MonoBehaviour {
+	
+	private Vector2 direction;
+	private Rigidbody2D rb;
+	[SerializeField] private float speed = 6f;
+	// Use this for initialization
+
+	void Start () {
+		rb = GetComponent<Rigidbody2D>();
+	}
+
+	void Update () {
+		direction = FindClosestEnemy().transform.position - this.transform.position;
+		rb.velocity = new Vector2(direction.x*speed, direction.y*speed);
+	}
+	
+	enemy FindClosestEnemy()
+	{
+		float distanceToClosestEnemy = Mathf.Infinity;
+		enemy closestEnemy = null;
+		enemy[] allEnemies = GameObject.FindObjectsOfType<enemy>();
+
+		foreach(enemy currentEnemy in allEnemies)
+		{
+			float distanceToEnemy = (currentEnemy.transform.position - this.transform.position).sqrMagnitude;
+			if(distanceToEnemy < distanceToClosestEnemy)
+			{
+				distanceToClosestEnemy = distanceToEnemy;
+				closestEnemy = currentEnemy;
+			}
+		}
+
+		return closestEnemy;
+	}
+}
