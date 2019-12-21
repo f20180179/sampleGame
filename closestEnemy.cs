@@ -17,7 +17,7 @@ public class closestEnemy : MonoBehaviour {
 		direction = FindClosestEnemy().transform.position - this.transform.position;
 		rb.velocity = new Vector2(direction.x*speed, direction.y*speed);
 	}
-	
+	//"enemy" to be replaced with script of your enemy object
 	enemy FindClosestEnemy()
 	{
 		float distanceToClosestEnemy = Mathf.Infinity;
